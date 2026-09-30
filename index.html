@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohini - Super Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+Bengali&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{height:100vh;background:#000;overflow:hidden;font-family:'Noto Sans Bengali',sans-serif}
+.rgb{position:fixed;inset:0;padding:4px;background:conic-gradient(#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);animation:hue 3s linear infinite}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+.inner{width:100%;height:100%;background:#000;border-radius:14px;overflow:hidden;position:relative}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#3d2e0a,#000 70%)}
+#lock{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.85);display:flex;justify-content:center;align-items:center}
+.box{width:90%;max-width:340px;background:rgba(255,255,255,.06);backdrop-filter:blur(20px);border:1.5px solid #ffde59;border-radius:28px;padding:24px;text-align:center}
+#pass{width:100%;padding:14px;border-radius:14px;border:1.5px solid #ffde59;background:rgba(0,0,0,.5);color:#fff;text-align:center;margin-top:14px;outline:none}
+#unlock{width:100%;margin-top:14px;padding:14px;background:linear-gradient(#ffe28a,#ffaa00);border:none;border-radius:14px;font-weight:900;cursor:pointer}
+.petals,.hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petal,.heart{position:absolute;top:-10%;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.photo{width:110px;height:110px;border-radius:50%;border:3px solid #ffde59;box-shadow:0 0 30px #ffae00;margin:0 auto;overflow:hidden;background:rgba(255,255,255,.1);display:flex;justify-content:center;align-items:center}
+.photo img{width:100%;height:100%;object-fit:cover}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:5;width:95%}
+.fl{font-size:52px;filter:drop-shadow(0 0 15px #ff4d4d);animation:wind 3s ease-in-out infinite}
+.fs{font-size:58px;filter:drop-shadow(0 0 15px #ffb700);animation:wind 3s ease-in-out infinite}
+@keyframes wind{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.btn{margin-top:40px;background:linear-gradient(#ffe28a,#ffaa00);padding:14px 38px;border-radius:40px;border:1px solid #ffde59;font-weight:900;cursor:pointer;box-shadow:0 0 25px #ff9d00}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;justify-content:center;align-items:center;z-index:50;padding:15px}
+.modal.show{display:flex}
+.card{width:100%;max-width:380px;max-height:90vh;overflow-y:auto;background:linear-gradient(#2a1f05,#0f0d00);border:1.5px solid #ffde59;border-radius:24px;padding:20px}
+.letter{background:linear-gradient(#fffef5,#fff8d6);border-radius:16px;padding:16px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="rgb"><div class="inner">
+<div class="bg"></div>
+<div class="petals" id="petals"></div>
+<div class="hearts" id="hearts"></div>
+
+<div id="lock">
+  <div class="box">
+    <div style="font-size:46px">🔒</div>
+    <div style="color:#ffde59;font-family:'Great Vibes',cursive;font-size:30px">Mohini Private</div>
+    <input type="password" id="pass" placeholder="Password likho...">
+    <button id="unlock">Unlock 💛</button>
+    <p style="color:#ffde59;font-size:11px;margin-top:10px">Pass: Mohini petni ami</p>
+    <p id="err" style="color:#ff6b6b;font-size:12px;display:none;margin-top:8px">ভুল পাসওয়ার্ড!</p>
+  </div>
+</div>
+
+<div id="main" style="display:none">
+<div style="position:absolute;top:0;width:100%;height:28px;overflow:hidden;white-space:nowrap"><span style="display:inline-block;padding-left:100%;animation:mar 14s linear infinite;color:#ffde59;font-family:'Great Vibes',cursive">my dear bestu mohini petni ta 🌻💛</span></div>
+<div class="center">
+  <div class="photo" id="photoBox"><span style="color:#ffde59;font-size:12px">📸 Add Photo</span><input type="file" id="fileInput" accept="image/*" style="display:none"></div>
+  <div style="margin-top:10px;font-family:'Great Vibes',cursive;color:#ffde59;font-size:32px">Mohini Nourin</div>
+  <div style="display:flex;justify-content:center;gap:12px;margin-top:12px">
+    <div class="fl">🌹</div><div class="fl">🌹</div><div class="fl">🌹</div><div class="fl">🌹</div><div class="fl">🌹</div>
+  </div>
+  <div style="display:flex;justify-content:center;gap:12px;margin-top:6px">
+    <div class="fs">🌻</div><div class="fs">🌻</div><div class="fs">🌻</div><div class="fs">🌻</div><div class="fs">🌻</div>
+  </div>
+  <button class="btn" id="loveBtn">I LOVE YOU MOHINI 💛</button>
+  <div style="margin-top:12px;color:#ffd;font-size:11px;letter-spacing:2px">Made for Mohini • 30 Sep 2026 • With Love 💛</div>
+</div>
+</div>
+
+<div class="modal" id="modal"><div class="card">
+<span id="close" style="float:right;color:#ffde59;font-size:28px;cursor:pointer">&times;</span>
+<div style="text-align:center;color:#ffde59;font-family:'Great Vibes',cursive;font-size:28px">Mohini-r Jonno 💛</div>
+<div class="letter"><h3>💌 চিঠি ১</h3><p id="t1"></p></div>
+<div class="letter"><h3>💌 চিঠি ২</h3><p id="t2"></p></div>
+</div></div>
+
+<!-- MUSIC -->
+<audio id="music" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+
+</div></div>
+
+<script>
+// petals falling
+const petals=document.getElementById('petals');
+for(let i=0;i<20;i++){let d=document.createElement('div');d.className='petal';d.innerText=Math.random()>0.5?'🌹':'🌻';d.style.left=Math.random()*100+'%';d.style.animationDuration=3+Math.random()*5+'s';d.style.animationDelay=Math.random()*5+'s';d.style.fontSize=12+Math.random()*14+'px';petals.appendChild(d)}
+// hearts floating
+const hearts=document.getElementById('hearts');
+setInterval(()=>{let h=document.createElement('div');h.className='heart';h.innerText='💖';h.style.left=Math.random()*100+'%';h.style.animationDuration=4+Math.random()*3+'s';h.style.fontSize=10+Math.random()*18+'px';hearts.appendChild(h);setTimeout(()=>h.remove(),7000)},400);
+
+// password
+const lock=document.getElementById('lock'), main=document.getElementById('main'), pass=document.getElementById('pass'), music=document.getElementById('music');
+document.getElementById('unlock').onclick=()=>{
+  if(pass.value.trim()==='Mohini petni ami'){
+    // confetti
+    for(let i=0;i<40;i++){let c=document.createElement('div');c.innerText='✨';c.style.position='fixed';c.style.left=Math.random()*100+'%';c.style.top='-10%';c.style.fontSize='20px';c.style.animation=`fall ${2+Math.random()*2}s linear`;document.body.appendChild(c);setTimeout(()=>c.remove(),3000)}
+    lock.style.transition='.6s';lock.style.opacity='0';setTimeout(()=>{lock.style.display='none';main.style.display='block';music.play().catch(()=>{});},600);
+  }else{document.getElementById('err').style.display='block';setTimeout(()=>document.getElementById('err').style.display='none',2000)}
+};
+pass.addEventListener('keypress',e=>{if(e.key==='Enter') document.getElementById('unlock').click()});
+
+// photo upload
+document.getElementById('photoBox').onclick=()=>document.getElementById('fileInput').click();
+document.getElementById('fileInput').onchange=e=>{let r=new FileReader();r.onload=()=>{document.getElementById('photoBox').innerHTML=`<img src="${r.result}">`};r.readAsDataURL(e.target.files[0])};
+
+// typing effect
+const txt1="আমার bestu না, ও আমার শান্তির জায়গা। হাজারটা মানুষ থাকলেও, দিন শেষে যার কাছে সব বলা যায় তার নাম Mohini। Petni হলেও আমার সবচেয়ে আপন।";
+const txt2="Mohini, তুই শুধু আমার best friend না, তুই আমার অভ্যাস। তোর সাথে ঝগড়া না করলে দিনটাই অসম্পূর্ণ লাগে। তুই পেত্নী, তুই বদমাশ, কিন্তু তুই আমার। My Sunshine, My Bestu। 🌻";
+function type(el,text){let i=0;el.innerHTML='';let id=setInterval(()=>{el.innerHTML+=text[i];i++;if(i>=text.length) clearInterval(id)},25)}
+const modal=document.getElementById('modal');
+document.getElementById('loveBtn').onclick=()=>{modal.style.display='flex';setTimeout(()=>modal.classList.add('show'),10);type(document.getElementById('t1'),txt1);setTimeout(()=>type(document.getElementById('t2'),txt2),1200)};
+document.getElementById('close').onclick=()=>{modal.classList.remove('show');setTimeout(()=>modal.style.display='none',300)};
+</script>
+<style>@keyframes mar{0%{transform:translateX(0)}100%{transform:translateX(-100%)}} @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}</style>
+</body>
+</html>
